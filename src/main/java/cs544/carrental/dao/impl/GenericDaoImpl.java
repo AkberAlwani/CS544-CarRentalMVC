@@ -40,6 +40,7 @@ public abstract class GenericDaoImpl<T> implements GenericDao<T> {
         delete( entity );  
     }
 
+
 	@Override
 	public T findOne( Long id ){
 	    return (T) entityManager.find( daoType, id );

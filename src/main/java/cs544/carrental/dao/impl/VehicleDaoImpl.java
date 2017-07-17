@@ -7,6 +7,7 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 
 import cs544.carrental.dao.VehicleDao;
+import cs544.carrental.domain.Account;
 import cs544.carrental.domain.Vehicle;
 @SuppressWarnings("unchecked")
 @Repository
@@ -24,8 +25,20 @@ public class VehicleDaoImpl extends GenericDaoImpl<Vehicle> implements VehicleDa
 	@Override
 	public List<Vehicle> findByNumberOfSeatsGreaterThanEqualAndDailyPriceLessThanEqualAndDailyPriceGreaterThanEqualOrderByVehicleIdDesc(
 			int seats, double maxDailyPrice, double minDailyPrice) {
-		// TODO Auto-generated method stub
+		
 		return null;
+	}
+	
+	public List<Vehicle> isAvaialble(Boolean flag){
+		Query query = entityManager.createQuery("select v from Vehicle v  where v.isAvailable =:flag");
+		return query.setParameter("flag", flag).getResultList();
+		
+	}
+
+	@Override
+	public List<Vehicle> searh(Integer seats, Double minPrice, Double maxPrice, Boolean isAvailable) {
+		Query query = entityManager.createQuery("select v from Vehicle v  where v.numberOfSeats =:seats");
+		return query.setParameter("seats", seats).getResultList();
 	}
 
 	

@@ -1,5 +1,6 @@
 package cs544.carrental.dao.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Query;
@@ -28,6 +29,14 @@ public class ReservationDaoImpl extends GenericDaoImpl<Reservation> implements R
 	public List<Reservation> findAllOrderbyreservationIdDesc() {
 		Query query = entityManager.createQuery("select r from Reservation r  order by r.reservationId desc");
 		return  query.getResultList();
+	}
+
+	@Override
+	public void update(Date date, Date pickUpDateTime, Date returnDateTime, long reservationId) {
+		Query query = entityManager.createQuery("Update Reservation set ");
+		//return  query.getResultList();
+		
+		
 	}
 	
 	

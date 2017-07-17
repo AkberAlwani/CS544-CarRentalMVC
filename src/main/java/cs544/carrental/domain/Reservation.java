@@ -16,7 +16,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Reservation {
 	@Id
 	@GeneratedValue
-	private int reservationId;
+	private long reservationId;
+	
 	@Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
 	private Date reservationDateTime;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -28,11 +29,11 @@ public class Reservation {
 	@OneToOne
 	private Person person;
 
-	public int getReservationId() {
+	public long getReservationId() {
 		return reservationId;
 	}
 
-	public void setReservationId(int reservationId) {
+	public void setReservationId(long reservationId) {
 		this.reservationId = reservationId;
 	}
 

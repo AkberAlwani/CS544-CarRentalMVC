@@ -17,10 +17,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.car.rent.domain.Person;
-import com.car.rent.domain.Vehicle;
-import com.car.rent.vehicle.domain.VehicleSpec;
-import com.car.rent.vehicle.service.VehicleService;
+import cs544.carrental.domain.Person;
+import cs544.carrental.domain.Vehicle;
+import cs544.carrental.domain.VehicleSpec;
+import cs544.carrental.service.VehicleService;
+
+
 
 @RequestMapping("/vehicle/")
 @Controller
@@ -29,18 +31,21 @@ public class VehicleController {
 	final private String URL = "/vehicle/";
 	// private boolean testing = true;
 
+	@Autowired
+	private VehicleService vehicleService;
+	
 	@RequestMapping(value = "vehicles", method = { RequestMethod.GET, RequestMethod.POST })
 	public String vehicles(@ModelAttribute("vs") VehicleSpec vs, BindingResult result, HttpSession session,
 			Model model) {
 		setRole(session, model);
-		List<Vehicle> found = this.vehicleService.search(vs.getMinSeats(), vs.getMinPrice(), vs.getMaxPrice(), null);
+		List<Vehicle> found = vehicleService.search(vs.getMinSeats(), vs.getMinPrice(), vs.getMaxPrice(), null);
 		model.addAttribute("vehicles", found);
 		return URL + "vehicles";
 	}
 
 	@GetMapping("detail/{vehicleId}")
 	public String vehicleDetail(@PathVariable Integer vehicleId, Model model) {
-		Vehicle vehicle = vehicleService.vehicleByVehicleId(vehicleId);
+		Vehicle vehicle = vehicleService.findByVehicleId(vehicleId);
 		model.addAttribute("vehicle", vehicle);
 		return URL + "detail";
 	}
@@ -49,7 +54,7 @@ public class VehicleController {
 	@PostMapping("delete")
 	public @ResponseBody String delete(int vehicleId, HttpSession session) {
 		authenticate(session);
-		vehicleService.deleteVehicle(vehicleId);
+		vehicleService.delete(vehicleId);
 		return "redirect:" + URL + "vehicles";
 	}
 
@@ -57,7 +62,7 @@ public class VehicleController {
 	@GetMapping("update/{vehicleId}")
 	public String update(@PathVariable int vehicleId, HttpSession session, Model model) {
 		// authenticate(session);
-		Vehicle vehicle = this.vehicleService.find(vehicleId);
+		Vehicle vehicle = this.vehicleService.findByVehicleId(vehicleId);
 		model.addAttribute("updated", false);
 		model.addAttribute("vehicle", vehicle);
 		return URL + "update";
@@ -102,7 +107,7 @@ public class VehicleController {
 
 		if (!result.hasErrors()) {
 			model.addAttribute("added", true);
-			vehicleService.addVehicle(vehicle);
+			vehicleService.save(vehicle);
 		} else {
 			model.addAttribute("added", false);
 			model.addAttribute("vehicle", vehicle);
@@ -142,7 +147,6 @@ public class VehicleController {
 		return URL + "search";
 	}
 
-	@Autowired
-	private VehicleService vehicleService;
+	
 
 }

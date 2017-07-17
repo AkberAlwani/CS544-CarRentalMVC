@@ -106,9 +106,9 @@ public class LoginController {
 			String password = accountService.MD5(account.getPassword());
 			account.setPassword(password);
 			account.setAccountType(AccountType.CUSTOMER);
-			accountService.addAccount(account);
+			accountService.save(account);
 			person.setAccount(account);
-			personService.addPerson(person);
+			personService.save(person);
 
 			model.addAttribute("msg", person.getName());
 			return "/users/user/thankyou";

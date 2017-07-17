@@ -7,11 +7,6 @@ import cs544.carrental.domain.Vehicle;
 
 public interface VehicleDao extends GenericDao<Vehicle> {
 
-//	void deleteByVehicleId(Integer vehicleId);
-
-//	Vehicle findByVehicleId(Integer vehicleId);
-
-//	List<Vehicle> findAll();
 
 /*	List<Vehicle> findByBrandIgnoringCaseLikeAndTypeIgnoringCaseLikeAndVehiclePlateNumberIgnoringCaseLikeAndNumberOfSeatsGreaterThanEqualAndDailyPriceLessThanEqualOrderByVehicleIdDesc(
 			String brand, String type, String VehiclePlateNumber, Integer NumberOfSeatsGreater, Double DailyPrice);
@@ -31,4 +26,7 @@ public interface VehicleDao extends GenericDao<Vehicle> {
 
 //	void setVehicleByVehicleId(String brand, String type, String vehiclePlateNumber, int model, int numberOfSeats,
 //			double dailyPrice, Boolean isAvailable, int vehicleId);
+	List<Vehicle> isAvaialble(Boolean flag);
+
+	List<Vehicle> searh(Integer seats, Double minPrice, Double maxPrice, Boolean isAvailable);
 }

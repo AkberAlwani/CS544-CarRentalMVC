@@ -47,7 +47,7 @@ public class Account {
 		return "Account [accountId=" + accountId + ", username=" + username + ", password=" + password + ", active="
 				+ active + ", accountType=" + accountType + "]";
 	}
-	public void setAccountId(Integer accountId) {
+	public void setAccountId(long accountId) {
 		this.accountId = accountId;
 	}
 	public String getUsername() {

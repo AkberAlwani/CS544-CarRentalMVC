@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -17,14 +16,17 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.car.rent.domain.Account;
-import com.car.rent.domain.AccountType;
-import com.car.rent.domain.Address;
-import com.car.rent.domain.Person;
-import com.car.rent.user.Service.AccountService;
-import com.car.rent.user.Service.PersonService;
+import cs544.carrental.domain.Account;
+import cs544.carrental.domain.AccountType;
+import cs544.carrental.domain.Address;
+import cs544.carrental.domain.Person;
+import cs544.carrental.service.AccountService;
+import cs544.carrental.service.PersonService;
+
+
 
 @Controller
 @RequestMapping("/user/")
@@ -33,15 +35,11 @@ public class UserController {
 	@Autowired
 	private PersonService personService;
 	@Autowired
-	private AccountServiceImpl accountService;
+	private AccountService accountService;
 
-	public void setAccountService(AccountServiceImpl accountService) {
-		this.accountService = accountService;
-	}
+	
 
-	public void setPersonService(PersonService personService) {
-		this.personService = personService;
-	}
+
 	//for the purpose redirecting user or admin
 	@RequestMapping(value = "/homeRedicrect", method = RequestMethod.GET)
 	public String home(Model model, HttpSession session) {
@@ -55,22 +53,22 @@ public class UserController {
 	@RequestMapping(value = "/users", method = RequestMethod.GET)
 	public String listUsers(Model model) {
 
-		model.addAttribute("personList", personService.getAll());
+		model.addAttribute("personList", personService.findAll());
 		return "/users/user/listUser";
 	}
 
 	@RequestMapping(value = "/searchUser", method = RequestMethod.POST)
-	public String searchUsers(@Param("userName") String userName, Model model) {
+	public String searchUsers(@RequestParam("userName") String userName, Model model) {
 		if (userName == "") {
 			return "redirect:/user/users";
 		}
-		model.addAttribute("personList", personService.find(userName));
+		model.addAttribute("personList", personService.findByUsername(userName));
 		return "/users/user/listUser";
 	}
 
 	@RequestMapping(value = "update/{PersonId}")
 	public String update(@PathVariable Integer PersonId, Model model) {
-		Person person = this.personService.find(PersonId);
+		Person person = this.personService.findOne(PersonId);
 		Address address = person.getAddress();
 		Account account = person.getAccount();
 		model.addAttribute("person", person);
@@ -96,7 +94,7 @@ public class UserController {
 			}
 			String password = accountService.MD5(account.getPassword());
 			account.setPassword(password);
-			accountService.updateAccount(account);
+			accountService.update(account);
 
 			System.out.println(person.toString());
 			// personService.updatePerson(person,account.getAccountId());
@@ -105,7 +103,8 @@ public class UserController {
 			System.out.println(account.toString());
 			System.out.println(address.toString());
 			System.out.println(account.getAccountId());
-			personService.updatePerson(person, account.getAccountId());
+			//personService.updatePerson(person, account.getAccountId());
+			personService.update(person);
 			return "redirect:/user/users";
 		}
 	}
@@ -130,9 +129,9 @@ public class UserController {
 	}*/
 	@RequestMapping(value = "delete/{PersonId}", method = RequestMethod.GET)
 	public  String delete(@PathVariable Integer PersonId, Model data) {
-		Integer AccountId = personService.find(PersonId).getAccount().getAccountId();
-		personService.deletePerson(PersonId);
-		accountService.deleteAccount(AccountId);
+		long AccountId = personService.findOne(PersonId).getAccount().getAccountId();
+		personService.delete(PersonId);
+		accountService.delete(AccountId);
 		return "redirect:"+"/user/users"; 
 	}
 

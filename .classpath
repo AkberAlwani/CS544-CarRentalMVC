@@ -42,5 +42,23 @@
 			<attribute name="maven.scope" value="compile"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/John/.m2/repository/org/springframework/spring-web/4.3.3.RELEASE/spring-web-4.3.3.RELEASE.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="maven.groupId" value="org.springframework"/>
+			<attribute name="maven.artifactId" value="spring-web"/>
+			<attribute name="maven.version" value="4.3.3.RELEASE"/>
+			<attribute name="maven.scope" value="compile"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/John/.m2/repository/org/springframework/security/spring-security-web/4.1.3.RELEASE/spring-security-web-4.1.3.RELEASE.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="maven.groupId" value="org.springframework.security"/>
+			<attribute name="maven.artifactId" value="spring-security-web"/>
+			<attribute name="maven.version" value="4.1.3.RELEASE"/>
+			<attribute name="maven.scope" value="compile"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

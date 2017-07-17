@@ -9,7 +9,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import cs544.carrental.domain.Product;
+
 import cs544.carrental.domain.UserCredentials;
 import cs544.carrental.rest.RestHttpHeader;
 import cs544.carrental.rest.service.UserCredentialsRestService;
@@ -35,7 +35,7 @@ public class UserCredentialsRestServiceImpl implements UserCredentialsRestServic
 	public UserCredentials save(UserCredentials product) {
 		RestTemplate restTemplate = remoteApi.getRestTemplate();
 		HttpEntity<UserCredentials> httpEntity = new HttpEntity<UserCredentials>(product, remoteApi.getHttpHeaders());
-		restTemplate.postForObject("http://localhost:8080/MemberRest/userCredentials/", httpEntity, Product.class);
+		restTemplate.postForObject("http://localhost:8080/MemberRest/userCredentials/", httpEntity, UserCredentials.class);
 		return null;
 	}
 

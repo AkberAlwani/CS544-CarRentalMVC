@@ -56,4 +56,10 @@ public class PersonDaoImpl extends GenericDaoImpl<Person> implements PersonDao {
 		return (Person) query.setParameter("name", name).getSingleResult();
 	}
 
+	@Override
+	public Person findByUsername(String userName) {
+		Query query = entityManager.createQuery("select p from Person p  where where p.username =:userName");
+		return (Person) query.setParameter("userName", userName).getSingleResult();
+	}
+
 }

@@ -14,9 +14,11 @@ import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 public class Payment {
+	
 	@Id
 	@GeneratedValue
 	private long paymentId;
+	
 	private Date paymentDateTime;
 
 	private String paymentType;
@@ -26,9 +28,11 @@ public class Payment {
 	@NotBlank
 	@Pattern(regexp = "\\d{3}", message = "Invalid  CVV number")
 	private String cvvNumber;
+	
 	@NotBlank
 	@Pattern(regexp = "\\d{4}[-]\\d{4}[-]\\d{4}[-]\\d{4}", message = "Invalid  card number")
 	private String cardNumber;
+	
 	@NotBlank
 	@Pattern(regexp = "\\d{2}[/]\\d{4}", message = "Invalid  card expiry day")
 	private String expiryDate;

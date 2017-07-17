@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import cs544.carrental.domain.Person;
+
 public interface GenericDao<T> {
 	/**
      * Method that returns the number of entries from a table that meet some

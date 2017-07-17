@@ -14,6 +14,6 @@
  
      
    <!-- Scan for  transaction-based resources -->
-   	<context:component-scan base-package="edu.mum" />
+   	<context:component-scan base-package="cs544.carrental" />
    
 </beans>

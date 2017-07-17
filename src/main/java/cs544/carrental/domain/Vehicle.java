@@ -12,7 +12,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class Vehicle {
 	@Id
 	@GeneratedValue
-	private Integer vehicleId;	
+	private long vehicleId;	
 	
 	@NotEmpty
 	private String brand;
@@ -33,11 +33,11 @@ public class Vehicle {
 	
 	private boolean isAvailable;
 
-	public Integer getVehicleId() {
+	public long getVehicleId() {
 		return vehicleId;
 	}
 
-	public void setVehicleId(Integer vehicleId) {
+	public void setVehicleId(long vehicleId) {
 		this.vehicleId = vehicleId;
 	}
 

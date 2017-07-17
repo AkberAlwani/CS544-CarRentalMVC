@@ -1,15 +1,24 @@
 package cs544.carrental.main;
 
- import java.util.List;
+ import java.nio.charset.Charset;
+import java.util.Collections;
+import java.util.List;
 
+import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 
-
+import cs544.carrental.domain.Person;
 import cs544.carrental.rest.RestHttpHeader;
-import cs544.carrental.service.ProductService;
+import cs544.carrental.rest.service.PersonRestService;
+
 
 @Component
 public class RestClient
@@ -18,7 +27,7 @@ public class RestClient
 	RestHttpHeader remoteApi;
 
 	@Autowired
-	ProductService productService;
+	PersonRestService personService;
 	
 
 	public static void main(String[] args)
@@ -31,49 +40,24 @@ public class RestClient
 	
 	        private void mainInternal(ApplicationContext applicationContext) {
  
-/*	  	   		Product product = productService.findOne(1);
+	  	   		Person person= personService.findOne(1L);
 	   	   		System.out.println();
-	  	   		System.out.println("single Product " + product.getName()); 
+	  	   		System.out.println("single Product " + person.getName()); 
 	  	   		System.out.println(); 
 
 
-  	   		List<Product> products = productService.findAll();
- 	        for (Product productTemp : products) {
-	    		System.out.println("Product " + productTemp.getName());
- 		    		System.out.println("       Category " + productTemp.getCategory().getName());
-
- 	        }
+  	   		List<Person> persons= personService.read();
+ 	        for (Person personTemp : persons) {
+	    		System.out.println("Product " + personTemp.getName());
+//	    		for (Category category : personTemp.getCategories()) {
+//		    		System.out.println("       Category " + category.getName());
+//
+//	    		}
+	        }
   	   		System.out.println(); 
 	        
-*/  	   		
-  		    Category category = new Category();
-  		    category.setName("Recreation");
+  	   		
   		    
-  		 
-  		    Product product = new Product();
-  		    product.setName("Frisbee");
-  		    product.setDescription("Woo Hoo!");
-  		    product.setPrice(2.0F);
-//  		    product.addCategory(category);
   		    
- // 		    category2.addProduct(product);
-
-  		  productService.addProduct(product);
-  		  
- //   		product = productService.findOne(1);   // LAZY category == category is null
-      		product = productService.getWithCategory(1L);   //Loaded CATEGORY
-	   		System.out.println();
-	   		System.out.println("single Product " + product.getName()); 
-    		System.out.println("       Category " + product.getCategories().get(0).getName());
-	   		System.out.println(); 	  
- 
-/*  		List<Product>  products = productService.findAll();
- 	        for (Product productt : products) {
-	    		System.out.println("Product " + productt.getName());
-	    		System.out.println("       Category " + productt.getCategory().getName());
-
-
-	        }*/
- 
 	}
 }

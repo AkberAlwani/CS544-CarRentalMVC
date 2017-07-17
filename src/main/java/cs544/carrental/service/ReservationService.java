@@ -8,9 +8,10 @@ import cs544.carrental.domain.Reservation;
 public interface ReservationService {
 	void save(Reservation reservation);
 	List<Reservation> getAll();
-	void delete(Reservation reservation);
-	void delete(int id);
-	Reservation findById(int id);
+	
+	void delete(long id);
+	Reservation findById(long id);
 	void update(Reservation res);
+	Reservation findById(int id);
 	
 }

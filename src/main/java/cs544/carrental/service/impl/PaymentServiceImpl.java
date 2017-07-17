@@ -47,7 +47,7 @@ public class PaymentServiceImpl implements PaymentService {
 		List<Payment> paymentList = paymentDao.findByPaymentId(Integer.parseInt(paymentId));
 		for (Payment p : paymentList) {
 			if (paymentId.equals(p.getPaymentId() + "")) {
-				paymentDao.delete(p);
+				paymentDao.delete(p.getPaymentId());
 			}
 		}
 	}
